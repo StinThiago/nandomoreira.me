@@ -3,15 +3,16 @@
     <div class="pageHeader__inner">
       <figure v-if="image || shareImage" class="pageHeader__image" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
         <meta itemprop="url" :content="shareImage">
-        <img v-if="image" :src="image" :alt="`Imagem de: ${title}`">
+        <img v-if="image" :src="image" :alt="`Imagem de: ${title || postTitle}`">
       </figure>
       <div class="container">
-        <h1 class="pageHeader__title" itemprop="headline">{{ title }}</h1>
+        <h1 class="pageHeader__title" itemprop="headline" v-if="title">{{ title }}</h1>
+        <h1 class="pageHeader__title" itemprop="headline" v-if="postTitle" v-html="postTitle" />
         <breadcrumb :breadcrumbs="breadcrumbs"></breadcrumb>
         <p v-if="description" itemprop="description" class="pageHeader__description">{{ description }}</p>
         <div class="pageHeader__meta">
-          <span v-if="date" itemprop="datePublished" :content="date">Publicado em {{ date | moment("MMMM") }} de {{ date | moment("YYYY") }} </span>
-          <span v-if="author">por <span itemprop="author">Fernando Moreira</span></span>
+          <span v-if="date" itemprop="datePublished" :content="date">Publicado <span>{{ date }}</span> </span>
+          <span v-if="author">por <span itemprop="author">{{ author.name }}</span></span>
         </div>
       </div>
     </div>
@@ -25,8 +26,10 @@ export default {
   name: 'PageHeader',
   props: {
     'title': {
-      type: String,
-      required: true
+      type: String
+    },
+    'postTitle': {
+      type: String
     },
     'description': {
       type: String
@@ -39,7 +42,7 @@ export default {
       default: `${siteUrl}/images/social.jpg`
     },
     'author': {
-      type: Boolean,
+      type: [Boolean, Object],
       default: false
     },
     'date': {

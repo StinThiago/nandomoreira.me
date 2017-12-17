@@ -1,22 +1,11 @@
-const hljs = require('highlight.js')
-
 module.exports = {
   content: [
     [
-      'posts',
+      'lab',
       {
-        page: '/_single',
-        permalink: ':slug',
-        generate: ['get', 'getAll'],
-        isPost: true
-      }
-    ],
-    [
-      'projects',
-      {
-        page: '/projects/_slug',
+        page: '/lab/_slug',
         generate: ['getAll'],
-        isPost: true
+        isPost: false
       }
     ],
     [
@@ -28,24 +17,12 @@ module.exports = {
       }
     ],
     [
-      'lab',
+      'projects',
       {
-        page: '/lab/_slug',
+        page: '/projects/_slug',
         generate: ['getAll'],
-        isPost: false
+        isPost: true
       }
     ]
-  ],
-  parsers: {
-    md: {
-      highlight: (code, lang) => {
-        if (!(lang && hljs.getLanguage(lang))) return
-        return hljs.highlight(lang, code, true).value
-      }
-    }
-  }
-  // api: {
-  //   baseURL: process.env.NODE_ENV === 'production'
-  //     ? '' : 'http://localhost:3000'
-  // }
+  ]
 }

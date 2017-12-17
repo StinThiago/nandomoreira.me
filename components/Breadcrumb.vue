@@ -1,8 +1,9 @@
 <template>
   <ol v-if="breadcrumbs" class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
     <li class="breadcrumb__item" v-for="(item, key) in breadcrumbs" :key="key" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <nuxt-link class="breadcrumb__link" v-bind:class="{ 'breadcrumb__link--active': item.active }" :to="item.url" :title="item.title" itemprop="item">
-        <span itemprop="name">{{ item.title }}</span>
+      <nuxt-link class="breadcrumb__link" v-bind:class="{ 'breadcrumb__link--active': item.active }" :to="item.url" itemprop="item">
+        <span itemprop="name" v-if="item.title">{{ item.title }}</span>
+        <span itemprop="name" v-if="item.postTitle" v-html="item.postTitle"/>
         <meta itemprop="position" :content="`${position = (key+1)}`"/>
       </nuxt-link>
       <span class="breadcrumb__divider">&raquo;</span>

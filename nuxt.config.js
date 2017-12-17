@@ -80,12 +80,17 @@ module.exports = {
   ],
   loading: { color: '#4dba87' },
   plugins: [
-    { src: '~/plugins/browser.js', ssr: false },
-    { src: '~/plugins/tooltip.js', ssr: false },
-    { src: '~/plugins/scrollto.js', ssr: false },
-    { src: '~/plugins/moment.js' }
+    // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    { src: '~plugins/browser.js', ssr: false },
+    { src: '~plugins/tooltip.js', ssr: false },
+    { src: '~plugins/scrollto.js', ssr: false },
+    { src: '~plugins/vue-lazyload', ssr: false },
+    { src: '~plugins/web-font-loader', ssr: false },
+    { src: '~plugins/moment.js' },
+    { src: '~plugins/mixins.js' }
   ],
   modules: [
+    '@nuxtjs/axios',
     ['@nuxtjs/browserconfig', { TileColor: '#4dba87' }],
     '@nuxtjs/markdownit',
     '@nuxtjs/sitemap',
